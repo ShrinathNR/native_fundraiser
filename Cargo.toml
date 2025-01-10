@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+solana-nostd-sha256 = "0.1.3"
+pinocchio = "0.7.0"
+pinocchio-token = "0.2.1"
+five8_const = "0.1.3"
