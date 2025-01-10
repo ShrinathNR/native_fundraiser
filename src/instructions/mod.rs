@@ -1,5 +1,10 @@
 use pinocchio::program_error::ProgramError;
 
+pub mod initialize;
+pub mod contribute;
+pub mod checker;
+pub mod refund;
+
 pub enum FundraiserInstruction {
     Initialize,
     Contribute,

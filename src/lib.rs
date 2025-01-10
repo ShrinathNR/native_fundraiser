@@ -1,4 +1,4 @@
-use instructions::FundraiserInstruction;
+use instructions::{checker::checker, contribute::contribute, initialize::initialize, refund::refund, FundraiserInstruction};
 use pinocchio::{account_info::AccountInfo, entrypoint, program_error::ProgramError, pubkey::Pubkey, ProgramResult};
 
 pub mod state;
@@ -18,10 +18,10 @@ pub fn process_instruction(
         .ok_or(ProgramError::InvalidInstructionData)?;
 
     match FundraiserInstruction::try_from(discriminator)? {
-        FundraiserInstruction::Initialize => todo!(),
-        FundraiserInstruction::Contribute => todo!(),
-        FundraiserInstruction::Checker => todo!(),
-        FundraiserInstruction::Refund => todo!(),
+        FundraiserInstruction::Initialize => initialize(accounts, data),
+        FundraiserInstruction::Contribute => contribute(accounts, data),
+        FundraiserInstruction::Checker => checker(accounts, data),
+        FundraiserInstruction::Refund => refund(accounts, data),
     }
 
 }
