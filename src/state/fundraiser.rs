@@ -10,16 +10,14 @@ pub struct Fundraiser(*const u8);
 impl Fundraiser {
     const LEN: usize = 80;
 
-    pub unsafe fn from_account_info_unchecked(account_info: AccountInfo) -> Self {
-            Self(account_info.borrow_mut_data_unchecked().as_ptr())
+    pub unsafe fn from_account_info_unchecked(account_info: &AccountInfo) -> Self {
+        Self(account_info.borrow_mut_data_unchecked().as_ptr())
     }
 
-    pub fn from_account_info(account_info: AccountInfo) -> Self {
+    pub fn from_account_info(account_info: &AccountInfo) -> Self {
         assert_eq!(account_info.data_len(), Self::LEN);
         assert_eq!(account_info.owner(), &crate::ID);
-        unsafe {
-            Self::from_account_info_unchecked(account_info)
-        }
+        unsafe { Self::from_account_info_unchecked(account_info) }
     }
 
     pub unsafe fn mint_to_raise(&self) -> Pubkey {

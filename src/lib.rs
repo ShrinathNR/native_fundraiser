@@ -1,10 +1,18 @@
-use instructions::{checker::checker, contribute::contribute, initialize::initialize, refund::refund, FundraiserInstruction};
-use pinocchio::{account_info::AccountInfo, entrypoint, program_error::ProgramError, pubkey::Pubkey, ProgramResult};
+use instructions::{
+    checker::checker, contribute::contribute, initialize::initialize, refund::refund,
+    FundraiserInstruction,
+};
+use pinocchio::{
+    account_info::AccountInfo, entrypoint, program_error::ProgramError, pubkey::Pubkey,
+    ProgramResult,
+};
 
-pub mod state;
+pub mod errors;
 pub mod instructions;
+pub mod state;
 
 pub const ID: Pubkey = five8_const::decode_32_const("ADcaide4vBtKuyZQqdU689YqEGZMCmS4tL35bdTv9wJa");
+pub const PDA_MARKER: &[u8; 21] = b"ProgramDerivedAddress";
 
 entrypoint!(process_instruction);
 
@@ -23,5 +31,4 @@ pub fn process_instruction(
         FundraiserInstruction::Checker => checker(accounts, data),
         FundraiserInstruction::Refund => refund(accounts, data),
     }
-
 }
